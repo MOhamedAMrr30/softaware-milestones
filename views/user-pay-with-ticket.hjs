@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Rides</title>
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="assets/css/all.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="container">
+        <div class="nav-content">
+          <ul class="links">
+            <li>
+              <a href="user-dashboard.html">home</a>
+            </li>
+            <li>
+              <a href="user-zones.html">zones</a>
+            </li>
+            <li>
+              <a href="subscriptions.html">supscriptions</a>
+            </li>
+            <li>
+              <a href="user-simulate-ride.html" class="active"
+                >Simulate-Rides</a
+              >
+            </li>
+            <li>
+              <a href="tickets.html">tickets</a>
+            </li>
+            <li>
+              <a href="prices.html">prices</a>
+            </li>
+            <li>
+              <a href="rides.html">rides</a>
+            </li>
+            <li>
+              <a href="user-requests.html">request senior</a>
+            </li>
+            <li>
+              <a href="index.html">logout</a>
+            </li>
+          </ul>
+          <ul class="personal-zone-data">
+            <li>
+              <span>21</span>
+              <i class="fa-solid fa-ticket"></i>
+            </li>
+            <li class="username">Mohamed Amr</li>
+            <li class="zone-name">nasr city</li>
+            <li class="zone-id">12765</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="pay-ticket-one-time">
+      <div class="container">
+        <form
+          action="user-dashboard.html"
+          class="pay-ticket-one-time-form"
+          method="post"
+        >
+          <div class="card-number">
+            <label for="card-number">credit card number</label>
+            <input
+              type="text"
+              name="card-number"
+              id="card-number"
+              minlength="16"
+              maxlength="16"
+            />
+          </div>
+          <div class="holder-name">
+            <label for="holder-name">holder name</label>
+            <input
+              type="text"
+              name="holder-name"
+              id="holder-name"
+              minlength="10"
+            />
+          </div>
+          <div class="paid-amount">
+            <label for="paid-amount">paid amount</label>
+            <input
+              type="text"
+              name="paid-amount"
+              id="paid-amount"
+              value="30"
+              readonly
+            />
+          </div>
+          <div class="origin">
+            <label for="origin">origin</label>
+            <input
+              type="text"
+              name="origin"
+              id="origin"
+              readonly
+              value="station1"
+            />
+          </div>
+          <div class="destination">
+            <label for="destination">destination</label>
+            <input
+              type="text"
+              name="destination"
+              id="destination"
+              readonly
+              value="station2"
+            />
+          </div>
+          <div class="trip-date">
+            <label for="trip-date">trip date</label>
+            <input
+              type="text"
+              name="trip-date"
+              id="trip-date"
+              readonly
+              value="17-09-2023"
+            />
+          </div>
+          <input type="submit" value="Book" />
+        </form>
+      </div>
+    </div>
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </body>
+</html>
