@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>request senior</title>
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="assets/css/all.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="container">
+        <div class="nav-content">
+          <ul class="links">
+            <li>
+              <a href="user-dashboard.html">home</a>
+            </li>
+            <li>
+              <a href="user-zones.html">zones</a>
+            </li>
+            <li>
+              <a href="subscriptions.html">supscriptions</a>
+            </li>
+            <li>
+              <a href="user-simulate-ride.html">Simulate-Rides</a>
+            </li>
+            <li>
+              <a href="tickets.html">tickets</a>
+            </li>
+            <li>
+              <a href="prices.html">prices</a>
+            </li>
+            <li>
+              <a href="rides.html">rides</a>
+            </li>
+            <li>
+              <a href="user-requests.html" class="active">request senior</a>
+            </li>
+            <li>
+              <a href="index.html">logout</a>
+            </li>
+          </ul>
+          <ul class="personal-zone-data">
+            <li>
+              <span>21</span>
+              <i class="fa-solid fa-ticket"></i>
+            </li>
+            <li class="username">Mohamed Amr</li>
+            <li class="zone-name">nasr city</li>
+            <li class="zone-id">12765</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="requests">
+      <div class="container">
+        <div class="user-discount">
+          <h3>discount request</h3>
+          <form action="user-requests.html" method="post">
+            <input
+              type="text"
+              name="user-id"
+              id="user-id"
+              placeholder="enter your id"
+              required
+            />
+            <input type="submit" value="send" />
+          </form>
+        </div>
+        <div class="user-refund">
+          <table class="table table-striped">
+            <h3 class="title">Upcoming Rides</h3>
+            <thead>
+              <tr>
+                <th scope="col">Ride No.</th>
+                <th scope="col">Origin</th>
+                <th scope="col">Destination</th>
+                <th scope="col">Date</th>
+                <th scope="col">Price</th>
+                <th scope="col">Refund status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Station1</td>
+                <td>Station2</td>
+                <td>19/03/2023</td>
+                <td>20 Egp</td>
+                <td class="refund-block">
+                  <button class="refund-btn active">refund</button>
+                  <span class="progress-status">progress</span>
+                </td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Station1</td>
+                <td>Station2</td>
+                <td>19/03/2023</td>
+                <td>20 Egp</td>
+                <td class="refund-block">
+                  <button class="refund-btn">refund</button>
+                  <span class="progress-status">progress</span>
+                </td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Station1</td>
+                <td>Station2</td>
+                <td>19/03/2023</td>
+                <td>20 Egp</td>
+                <td class="refund-block">
+                  <button class="refund-btn rejected">refund</button>
+                  <span class="progress-status">progress</span>
+                </td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Station1</td>
+                <td>Station2</td>
+                <td>19/03/2023</td>
+                <td>20 Egp</td>
+                <td class="refund-block">
+                  <button class="refund-btn">refund</button
+                  ><span class="progress-status">progress</span>
+                </td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>Station1</td>
+                <td>Station2</td>
+                <td>19/03/2023</td>
+                <td>20 Egp</td>
+                <td class="refund-block">
+                  <button class="refund-btn">refund</button
+                  ><span class="progress-status">progress</span>
+                </td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td>Station1</td>
+                <td>Station2</td>
+                <td>19/03/2023</td>
+                <td>20 Egp</td>
+                <td class="refund-block">
+                  <button class="refund-btn">refund</button
+                  ><span class="progress-status">progress</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script>
+      let refundBtns = document.querySelectorAll(".refund-btn");
+      let cancelRefundBtns = document.querySelectorAll(".close");
+      refundBtns.forEach((refundbtn) => {
+        refundbtn.addEventListener("click", (e) => {
+          e.target.classList.toggle("active");
+        });
+      });
+      // cancelRefundBtns.forEach((cancelRefundBtn) => {
+      //   cancelRefundBtn.addEventListener("click", (e) => {
+      //     e.target.classList.remove("active");
+      //   });
+      // });
+    </script>
+  </body>
+</html>

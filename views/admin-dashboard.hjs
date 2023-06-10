@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="assets/css/all.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="container">
+        <div class="nav-content">
+          <ul class="links">
+            <li>
+              <a href="admin-dashboard.html" class="active">home</a>
+            </li>
+            <li>
+              <a href="admin-dashboard-users.html">users</a>
+            </li>
+            <li>
+              <a href="admin-dashboard-stations.html">stations</a>
+            </li>
+            <li>
+              <a href="admin-dashboard-routes.html">routes</a>
+            </li>
+            <li>
+              <a href="admin-dashboard-zones.html">zones</a>
+            </li>
+            <li>
+              <a href="admin-dashboard-ticket-refund.html">refund requests</a>
+            </li>
+            <li>
+              <a href="admin-dashboard-discount.html">request senior</a>
+            </li>
+          </ul>
+          <ul class="personal-zone-data">
+            <!-- <li>
+              <span>21</span>
+              <i class="fa-solid fa-ticket"></i>
+            </li> -->
+            <li class="username">Mohamed Amr</li>
+            <li class="zone-name">nasr city</li>
+            <li class="zone-id">12765</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="home">
+      <div class="container">
+        <div class="welcome">
+          <p>welcome <span>mohamed</span> to <span>metro-system</span></p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

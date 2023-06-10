@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div class="login-form">
+      <div class="login-form-body">
+        <form action="user-dashboard.html" method="post" autocomplete="off">
+          <h2 class="form-title">login</h2>
+          <div class="rows-block">
+            <div class="row">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+            <div class="row">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Enter your Password"
+                minlength="8"
+                required
+              />
+            </div>
+            <span>Create new account <a href="register.html">Register</a></span>
+            <span
+              >Forget Password
+              <a href="resetPassword.html">Reset password</a></span
+            >
+            <div class="login-btn">
+              <input type="submit" value="login" />
+            </div>
+            <script>
+              $.ajax({
+            type: "POST",
+            url: '/api/v1/user/login',
+            data,
+            success: function(serverResponse) {
+              if(serverResponse) {
+                location.href = '/dashboard';
+              }
+            },
+            error: function(errorResponse) {
+              if(errorResponse) {
+                alert(`User login error: ${errorResponse.responseText}`);
+              }            
+            }
+          });
+            </script>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

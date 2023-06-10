@@ -1,0 +1,748 @@
+/* General attribute start */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  user-select: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style-type: none;
+}
+
+img,
+video {
+  display: block;
+  pointer-events: none;
+}
+
+.table caption {
+  font-weight: bold;
+  color: #383b72;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 992px) {
+  .container {
+    width: 90%;
+  }
+}
+
+body {
+  background: #f5f5f5;
+}
+
+/* General attribute start */
+
+/* login page start */
+
+.login-form,
+.register-form {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form-body,
+.register-form-body {
+  width: 1000px;
+  display: flex;
+  border-radius: 20px;
+  background-color: whitesmoke;
+}
+
+.login-form-image,
+.register-form-image {
+  width: 50%;
+}
+
+.login-form-body .login-form-image img,
+.register-form-body .register-form-image img {
+  width: 100%;
+}
+
+.login-form form,
+.register-form form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 60px;
+  padding: 20px 30px;
+}
+
+.login-form form {
+  gap: 60px;
+}
+
+.register-form form {
+  gap: 10px;
+}
+
+@media screen and (max-width: 992px) {
+  .login-form-body,
+  .register-form-body {
+    width: 80% !important;
+    position: relative;
+    z-index: 1;
+  }
+
+  .login-form-body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-image: url(../images/login-image.jpg);
+    background-size: cover;
+    background-position: center;
+    opacity: 0.2;
+    z-index: -1;
+  }
+
+  .register-form-body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-image: url(../images/register-image.jpg);
+    background-size: cover;
+    background-position: center;
+    opacity: 0.2;
+    z-index: -1;
+  }
+
+  .login-form-body::after,
+  .register-form-body::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(56, 59, 114, 1);
+    background-size: cover;
+    background-position: center;
+    opacity: 0.2;
+    z-index: -1;
+  }
+
+  .login-form-image,
+  .register-form-image {
+    display: none;
+  }
+  .login-form form,
+  .register-form form {
+    width: 100% !important;
+    margin: auto;
+  }
+}
+
+.rows-block {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.login-btn input,
+.register-btn input {
+  border: none;
+  outline: none;
+  background-color: #383b72;
+  padding: 7.5px 12.5px;
+  text-align: center;
+  color: white;
+  text-transform: capitalize;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.login-form form span,
+.register-form form span {
+  font-size: 0.8rem;
+}
+
+.login-form form span a,
+.register-form form span a,
+.login-form form span a:visited,
+.register-form form span a:visited,
+.login-form form span a:active,
+.register-form form span a:active {
+  color: #383b72;
+  font-size: 0.9rem;
+  text-decoration: underline;
+  line-height: 30px;
+}
+
+.form-title {
+  text-align: center;
+  text-transform: uppercase;
+  margin-top: 20px;
+}
+
+.login-form form .row,
+.register-form form .row {
+  margin-bottom: 7.5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form form .row label,
+.login-form form .row input {
+  width: 100%;
+  display: block !important;
+}
+
+.login-form form .row label,
+.register-form form .row label {
+  margin-bottom: 5px;
+  text-transform: capitalize;
+}
+
+.login-form form .row input,
+.register-form form .row input {
+  padding: 10px;
+  border: none;
+  outline: none;
+  background-color: white;
+  border-radius: 5px;
+}
+
+/* login page end */
+
+/* User Home Page Start */
+
+.navbar {
+  padding: 15px 0;
+  background-color: #383b72;
+  margin: 0;
+  border-radius: 0 !important;
+}
+
+.nav-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar ul {
+  display: flex;
+}
+
+.navbar ul li {
+  padding: 0 10px;
+}
+
+.navbar ul li,
+.navbar ul li a {
+  color: white;
+  text-transform: capitalize;
+}
+
+.personal-zone-data span {
+  font-weight: bold;
+}
+
+.home {
+  height: calc(100vh - 51.6px);
+  padding: 50px;
+}
+
+.home .container,
+.tickets .container {
+  display: flex;
+  justify-content: center;
+}
+
+.home p {
+  text-transform: capitalize;
+  font-size: 2rem;
+}
+
+.home p span {
+  font-weight: bold;
+  color: #383b72;
+}
+
+/* User Home Page End */
+
+/* user tickets page start */
+
+.tickets .container {
+  flex-direction: column !important;
+  align-items: center;
+  gap: 20px;
+}
+
+.check-price {
+  display: flex;
+  gap: 20px;
+  text-transform: capitalize;
+  align-items: end;
+}
+
+select {
+  text-transform: capitalize;
+  padding: 2px;
+  width: 100%;
+}
+
+.check {
+  padding: 7.5px 20px;
+  background-color: #383b72;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+  line-height: 100%;
+  text-transform: capitalize;
+  letter-spacing: 1px;
+  border: 0;
+  outline: 0;
+}
+
+.tickets .price {
+  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tickets .price span {
+  /* line-height: 45px; */
+  padding-left: 20px;
+  border-left: 3.5px solid black;
+  margin-left: 20px;
+}
+
+.tickets-table {
+  width: 100%;
+}
+
+/* user tickets page end */
+
+/* zone page start */
+
+.zones .zones-table {
+  margin-bottom: 30px;
+}
+
+.zones .zones-table .title {
+  text-transform: capitalize;
+}
+
+ul.zone-info {
+  display: flex;
+  gap: 20px;
+}
+
+ul.zone-info li span {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+/* zone page end */
+
+/* requests page start */
+
+.user-discount {
+  text-transform: capitalize;
+}
+
+.user-discount form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.user-discount form input[type="text"] {
+  width: 100%;
+  padding: 5px 10px;
+}
+
+.user-discount form input[type="submit"],
+.simulate-form input[type="submit"],
+.pay-ticket-sub-form input[type="submit"],
+.pay-ticket-one-time-form input[type="submit"] {
+  width: fit-content;
+  text-transform: capitalize;
+  padding: 7.5px 20px;
+  background-color: #383b72;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+  line-height: 100%;
+  text-transform: capitalize;
+  letter-spacing: 1px;
+  border: 0;
+  outline: 0;
+}
+
+.refund-block {
+  display: flex;
+  gap: 12.5px;
+}
+
+.refund-block .refund-btn,
+.refund-block .refund-btn.active {
+  background-color: #932424;
+  padding: 2.5px 7.5px;
+  color: white;
+  border: 0;
+  outline: 0;
+  text-transform: capitalize;
+  position: relative;
+}
+
+.refund-block .progress-status {
+  text-transform: capitalize;
+  font-weight: bold;
+  opacity: 0.5;
+  display: none;
+}
+
+.refund-block .refund-btn.active {
+  background-color: darkgrey;
+}
+
+.refund-block .refund-btn.active + .progress-status {
+  display: block;
+}
+
+/* requests page end */
+
+/* simulate page Start */
+
+.simulate-form {
+  padding: 35px 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 15px;
+  text-transform: capitalize;
+}
+
+.simulate-form .origin,
+.simulate-form .destination,
+.simulate-form .trip-date {
+  width: 100%;
+}
+
+input[type="date"] {
+  display: block;
+  width: 100%;
+}
+
+.simulate-form input[type="submit"] {
+  margin-right: auto;
+}
+
+.payment-methods {
+  display: flex;
+  gap: 20px;
+  padding: 35px 0;
+  justify-content: center;
+  text-transform: capitalize;
+}
+
+.payment-methods a {
+  width: 50%;
+  text-align: center;
+  padding: 12.5px 0;
+  display: inline-block;
+  text-transform: capitalize;
+  background-color: #383b72;
+  color: white;
+  font-weight: bold;
+  font-size: 1.5rem;
+  border: 0;
+  outline: 0;
+  text-decoration: none;
+}
+
+.pay-ticket-sub-form,
+.pay-ticket-one-time-form {
+  display: flex;
+  flex-direction: column;
+  padding: 35px 0;
+  text-transform: capitalize;
+  gap: 15px;
+}
+
+.pay-ticket-sub-form label,
+.pay-ticket-one-time-form label {
+  display: block;
+}
+
+.pay-ticket-sub-form input,
+.pay-ticket-one-time-form input {
+  width: 100%;
+  padding: 5px 10px;
+  text-transform: capitalize;
+}
+
+/* simulate page End */
+
+/* admin dashboards start */
+
+.table-responsive {
+  margin: 30px 0;
+}
+.table-wrapper {
+  min-width: 1000px;
+  background: #fff;
+  padding: 20px 25px;
+  border-radius: 3px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+.table-title {
+  padding-bottom: 15px;
+  background: #383b72;
+  color: #fff;
+  padding: 16px 30px;
+  margin: -20px -25px 10px;
+  border-radius: 3px 3px 0 0;
+}
+.table-title h2 {
+  margin: 5px 0 0;
+  font-size: 24px;
+}
+.table-title .btn-group {
+  float: right;
+}
+.table-title .btn {
+  color: #fff;
+  float: right;
+  font-size: 13px;
+  border: none;
+  min-width: 50px;
+  border-radius: 2px;
+  border: none;
+  outline: none !important;
+  margin-left: 10px;
+}
+.table-title .btn i {
+  float: left;
+  font-size: 21px;
+  margin-right: 5px;
+}
+.table-title .btn span {
+  float: left;
+  margin-top: 2px;
+}
+table.table tr th,
+table.table tr td {
+  border-color: #e9e9e9;
+  padding: 12px 15px;
+  vertical-align: middle;
+}
+table.table tr th:first-child {
+  width: 60px;
+}
+table.table tr th:last-child {
+  width: 100px;
+}
+table.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #fcfcfc;
+}
+table.table-striped.table-hover tbody tr:hover {
+  background: #f5f5f5;
+}
+table.table th i {
+  font-size: 13px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+table.table td:last-child i {
+  opacity: 0.9;
+  font-size: 22px;
+  margin: 0 5px;
+}
+table.table td a {
+  font-weight: bold;
+  color: #566787;
+  display: inline-block;
+  text-decoration: none;
+  outline: none !important;
+}
+table.table td a:hover {
+  color: #2196f3;
+}
+table.table td a.edit {
+  color: #ffc107;
+}
+table.table td a.delete {
+  color: #f44336;
+}
+table.table td i {
+  font-size: 19px;
+}
+table.table .avatar {
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+.pagination {
+  float: right;
+  margin: 0 0 5px;
+}
+.pagination li a {
+  border: none;
+  font-size: 13px;
+  min-width: 30px;
+  min-height: 30px;
+  color: #999;
+  margin: 0 2px;
+  line-height: 30px;
+  border-radius: 2px !important;
+  text-align: center;
+  padding: 0 6px;
+}
+.pagination li a:hover {
+  color: #666;
+}
+.pagination li.active a,
+.pagination li.active a.page-link {
+  background: #03a9f4;
+}
+.pagination li.active a:hover {
+  background: #0397d6;
+}
+.pagination li.disabled i {
+  color: #ccc;
+}
+.pagination li i {
+  font-size: 16px;
+  padding-top: 6px;
+}
+.hint-text {
+  float: left;
+  margin-top: 10px;
+  font-size: 13px;
+}
+/* Custom checkbox */
+.custom-checkbox {
+  position: relative;
+}
+.custom-checkbox input[type="checkbox"] {
+  opacity: 0;
+  position: absolute;
+  margin: 5px 0 0 3px;
+  z-index: 9;
+}
+.custom-checkbox label:before {
+  width: 18px;
+  height: 18px;
+}
+.custom-checkbox label:before {
+  content: "";
+  margin-right: 10px;
+  display: inline-block;
+  vertical-align: text-top;
+  background: white;
+  border: 1px solid #bbb;
+  border-radius: 2px;
+  box-sizing: border-box;
+  z-index: 2;
+}
+.custom-checkbox input[type="checkbox"]:checked + label:after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 3px;
+  width: 6px;
+  height: 11px;
+  border: solid #000;
+  border-width: 0 3px 3px 0;
+  transform: inherit;
+  z-index: 3;
+  transform: rotateZ(45deg);
+}
+.custom-checkbox input[type="checkbox"]:checked + label:before {
+  border-color: #03a9f4;
+  background: #03a9f4;
+}
+.custom-checkbox input[type="checkbox"]:checked + label:after {
+  border-color: #fff;
+}
+.custom-checkbox input[type="checkbox"]:disabled + label:before {
+  color: #b8b8b8;
+  cursor: auto;
+  box-shadow: none;
+  background: #ddd;
+}
+/* Modal styles */
+.modal .modal-dialog {
+  max-width: 400px;
+}
+.modal .modal-header,
+.modal .modal-body,
+.modal .modal-footer {
+  padding: 20px 30px;
+}
+.modal .modal-content {
+  border-radius: 3px;
+}
+.modal .modal-footer {
+  background: #ecf0f1;
+  border-radius: 0 0 3px 3px;
+}
+.modal .modal-title {
+  display: inline-block;
+}
+.modal .form-control {
+  border-radius: 2px;
+  box-shadow: none;
+  border-color: #dddddd;
+}
+.modal textarea.form-control {
+  resize: vertical;
+}
+.modal .btn {
+  border-radius: 2px;
+  min-width: 100px;
+}
+.modal form label {
+  font-weight: normal;
+}
+
+/* admin dashboard end */
+
+/* admin refund tickets start */
+
+.accept-refund,
+.reject-refund {
+  border: 0;
+  outline: 0;
+  background-color: transparent;
+}
+
+.accept-refund i,
+.reject-refund i {
+  font-size: 2rem !important;
+  width: 20px;
+}
+
+.accept-refund {
+  color: green;
+}
+
+.reject-refund {
+  color: red;
+}
+
+/* admin refund tickets end */
