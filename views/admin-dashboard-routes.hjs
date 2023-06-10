@@ -381,6 +381,24 @@
             </div>
           </form>
         </div>
+        <script>
+                  $.ajax({
+          type: "DELETE",
+          url: '/api/v1/route/:routeId',
+          data,
+          success: function(serverResponse) {
+            if(serverResponse) {
+              alert('Successfully Route Deleted');
+              location.href = '/';
+            }
+          },
+          error: function(errorResponse) {
+            if(errorResponse) {
+              alert(`Error Deleting route: ${errorResponse.responseText}`);
+            }            
+          }
+        });
+        </script>
       </div>
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>

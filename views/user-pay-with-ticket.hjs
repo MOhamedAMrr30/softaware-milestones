@@ -129,6 +129,24 @@
           <input type="submit" value="Book" />
         </form>
       </div>
+      <script>
+                $.ajax({
+          type: "POST",
+          url: '/api/v1/payment/ticket',
+          data,
+          success: function(serverResponse) {
+            if(serverResponse) {
+              alert('Successfully Ticket Booked');
+              location.href = '/';
+            }
+          },
+          error: function(errorResponse) {
+            if(errorResponse) {
+              alert(`Error Ticket booking: ${errorResponse.responseText}`);
+            }            
+          }
+        });
+      </script>
     </div>
 
     <!-- jQuery library -->

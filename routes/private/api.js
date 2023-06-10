@@ -8,7 +8,7 @@ const getUser = async function (req) {
   if (!sessionToken) {
     return res.status(301).redirect("/");
   }
-  console.log("hi",sessionToken);
+  
   const user = await db
     .select("*")
     .from("se_project.sessions")
@@ -25,11 +25,9 @@ const getUser = async function (req) {
     )
    .first();
 
-  console.log("user =>", user);
   user.isNormal = user.roleid === roles.user;
   user.isAdmin = user.roleid === roles.admin;
   user.isSenior = user.roleid === roles.senior;
-  console.log("user =>", user)
   return user;
 };
 
@@ -51,19 +49,14 @@ module.exports = function (app) {
 
   app.put("/api/v1/password/reset", async function (req, res) {
     const newPassword = req.body; // Assuming the password is provided as the entire request body
-    const email = req.body;
+    const user_info = await getUser(req);
   
     if (!newPassword) {
       return res.status(400).send("password field is empty");
     }
   
     try {
-      const user = await db("se_project.users").where({ email }).first();
-      if (!user) {
-        return res.status(404).send("User not found");
-      }
-  
-      await db("se_project.users").where({ email }).update( password = newPassword );
+      await db("se_project.users").where({email : user_info.email}).update(password = newPassword );
       return res.status(200).send("Password reset successful");
     } catch (e) {
       console.log(e.message);
@@ -83,8 +76,8 @@ module.exports = function (app) {
     //---------------------------------------------------------------------------------------------------------------------------------------------//
 
 
-    app.post('/api/v1/payment/subscription', async function (req, res) {
-      
+     app.post('/api/v1/payment/subscription', async function (req, res) {
+      const user_info = await getUser(req);
      let ticketQuantity;
       const { creditCardNumber, holderName, payedAmount, subType, zoneId} = req.body;
      
@@ -94,6 +87,7 @@ module.exports = function (app) {
           break;
         case 'quarterly':
           ticketQuantity = 50;
+
           break;
         case 'monthly':
           ticketQuantity = 10;
@@ -101,6 +95,7 @@ module.exports = function (app) {
         default:
           return res.status(400).json({ error: 'Invalid subscription type' });
       }
+
 
       if (!creditCardNumber) {
         return res.status(400).json({ error: 'Missing credit card number' });
@@ -117,253 +112,216 @@ module.exports = function (app) {
       if (!zoneId) {
         return res.status(400).json({ error: 'Missing zone ID' });
       }
+      //get the zone by the zone id then check if no zone catch an error 
+      const zone = await db.select("*")
+      .from("se_project.zones")
+      .where("price", zoneprice);
+      console.log(zone);
+      if (zone.length == 0) {
+        return res.status(400).json({ error: 'Missing zone ID' });
+      }
 
-
-      
 
       // Create subscription object and save it
       const subscription = {
-        creditCardNumber,
-        holderName,
-        payedAmount,
-        subType,
-        zoneId,
-        ticketQuantity
+        subtype : subType,
+       zoneid : zoneId,
+       userid : user_info.id,
+       nooftickets :  ticketQuantity 
       };
 
 
-      const subscription1 = await db("se_project.subsription").insert({
-        
-        subtype:subType,
-        zoneid:zoneId,
-        }).returning("*");
-
-      res.status(201).json(subscription1);
+      const subscription2 = await db("se_project.subsription").insert(subscription).innerJoin("se_project.zones").where(id = zoneId).returning("*");
+      res.status(201).json(subscription2);
     });
-   
 
     
  
 
-  // POST /api/v1/payment/ticket
-  app.post("/api/v1/payment/ticket", async function (req, res) {
-    const { purchasedId, creditCardNumber, holderName, payedAmount, origin, destination, tripDate } = req.body;
-
-    // Perform input validation
-    if (!purchasedId || !creditCardNumber || !holderName || !payedAmount || !origin || !destination || !tripDate) {
-      return res.status(400).send("All fields are required.");
-    }
+  
+  app.post("/api/v1/refund/:ticketId", async function (req, res) {
+    const ticketIdd = req.params;
+    const zoneprice = req.params;
+const user_info = await getUser(req);
 
     try {
-      // Assuming you have a tickets table in your database with appropriate columns
-      const ticket = {
-        purchasedId,
-        creditCardNumber,
-        holderName,
-        payedAmount,
-        origin,
-        destination,
-        tripDate
-      };
 
-      // Insert the ticket into the database
-      const insertedTicket = await db("se_project.tickets").insert(ticket).returning("*");
+     
 
-      return res.status(200).json(insertedTicket);
+ //get user info 
+      //join subs
+      //join zone
+      //insert zone.price
+      // Create subscription object and save it
+      const refundticket = {
+        status : "pending",
+       userid : user_info.id,
+       refundamount : zoneprice ,
+       ticketid : ticketIdd.id
+      };     
+     
+     
+      const refundticket2 = await db("se_project.refund_requests")
+      .insert(refundticket).innerJoin("se_project.tickets","se_project.zones")
+      .where("id", ticketIdd).where( "price", zoneprice)
+      .returning("*");
+      
+
+      res.status(201).json(refundticket2);
     } catch (e) {
       console.log(e.message);
-      return res.status(500).send("Could not create ticket.");
+      return res.status(500).send("Could not refund a ticket.");
     }
   });
 
-  // POST /api/v1/tickets/purchase/subscription
-  app.post("/api/v1/tickets/purchase/subscription", async function (req, res) {
-    const { subId, origin, destination, tripDate } = req.body;
 
-    // Perform input validation
-    if (!subId || !origin || !destination || !tripDate) {
-      return res.status(400).send("All fields are required.");
-    }
+ 
 
+
+  app.post('/api/v1/payment/ticket', async function (req, res) {
+    const user_info = await getUser(req);
+  
+    const { creditCardNumber, holderName, payedAmount, origin, destination, tripdate} = req.body;
+   
+
+    //get the zone by the zone id then check if no zone catch an error 
+    
     try {
-      // Assuming you have a subscriptions table in your database and a subscription with the given subId exists
-      const subscription = await db("se_project.subscriptions").where({ id: subId }).first();
 
-      if (!subscription) {
-        return res.status(404).send("Subscription not found.");
-      }
-
-      // Create a new ticket based on the subscription details
-      const ticket = {
-        purchasedId: subscription.userId,
-        creditCardNumber: subscription.creditCardNumber,
-        holderName: subscription.holderName,
-        payedAmount: 0, // Assuming payment is covered by the subscription
-        origin,
-        destination,
-        tripDate
-      };
-
-      // Insert the ticket into the database
-      const insertedTicket = await db("se_project.s").insert(ticket).returning("*");
-
-      return res.status(200).json(insertedTicket);
-    } catch (e) {
-      console.log(e.message);
-      return res.status(500).send("Could not create ticket.");
+    // Create subscription object and save it
+    const ticket = {
+      origin: origin,
+      destination : destination,
+     userid : user_info.id,
+     subid : null,
+     tripdate : tripdate
+    
     }
-  });
 
-  // POST /api/v1/tickets/price/:originId&:destinationId
-  app.post("/api/v1/tickets/price/:originId&:destinationId", async function (req, res) {
-    const { originId, destinationId } = req.body;
 
-    try {
-      // Assuming you have a prices table in your database with appropriate columns
-      const price = await db("se_project.prices")
-        .where({ originId, destinationId })
-        .first();
+    const ticket2 = await db("se_project.tickets").insert(ticket).returning("*");
+    res.status(201).json(ticket2);
 
-      if (!price) {
-        return res.status(404).send("Price not found for the specified origin and destination.");
-      }
+  } catch (e) {
+    console.log(e.message);
+    return res.status(500).send("Error.");
+  }
+});
 
-      return res.status(200).json(price);
-    } catch (e) {
-      console.log(e.message);
-      return res.status(500).send("Error retrieving price.");
-    }
-  });
+  //find destinantion and innerjoin,outerjoin
+
+  //insert natinal , pending, get user = req senior
+  //admin : status : approve and give senior role to user, reject : status
 
   // POST /api/v1/requests/refund/:ticketId
-  app.post("/api/v1/requests/refund/:ticketId", async function (req, res) {
-    const { ticketId, refundamount } = req.body;
+  
+  // app.post("/api/v1/senior/request", async function (req, res) {
+  //   const { nationalid } = req.body;
 
-    if (!ticketId) {
-      return res.status(400).send("Ticket could not be refunded.");
-    }
+  //   if (!nationalid) {
+  //     return res.status(400).send("Senior request cannot be done.");
+  //   }
 
-    try {
-      const refund = {
-        ticketid: ticketId,
-        refundamount
-      };
+  //   try {
+  //     const seniorReq = {
+  //       nationalid,
+  //     };
 
-      const refundedAmount = await db("se_project.refund_requests").insert(refund).returning("*");
-      return res.status(400).json(refundamount);
-    } catch (e) {
-      console.log(e.message);
-      return res.status(400).send("Error refunding ticket.");
-    }
-  });
+  //     const senior = await db("se_project.senior_requests").insert(seniorReq).returning("*");
 
-  app.post("/api/v1/senior/request", async function (req, res) {
-    const { nationalid } = req.body;
+  //     return res.status(400).json(senior);
 
-    if (!nationalid) {
-      return res.status(400).send("Senior request cannot be done.");
-    }
+  //   } catch (e) {
+  //     console.log(e.message);
+  //     return res.status(400).send("Couldn't request senior");
+  //   }
+  // });
 
-    try {
-      const seniorReq = {
-        nationalid,
-      };
+  // app.put("/api/v1/ride/simulate", async function (req, res) {
+  //   const { origin, destination, tripDate } = req.body;
 
-      const senior = await db("se_project.senior_requests").insert(seniorReq).returning("*");
+  //   if (!origin || !destination || !tripDate) {
+  //     return res.status(400).send("Ride not simulated.");
+  //   }
 
-      return res.status(400).json(senior);
+  //   try {
+  //     const simulate = {
+  //       origin,
+  //       destination,
+  //       tripDate,
+  //     };
 
-    } catch (e) {
-      console.log(e.message);
-      return res.status(400).send("Couldn't request senior");
-    }
-  });
+  //     const simulated = await db("se_project.rides").update(simulate).returning("*");
 
-  app.put("/api/v1/ride/simulate", async function (req, res) {
-    const { origin, destination, tripDate } = req.body;
-
-    if (!origin || !destination || !tripDate) {
-      return res.status(400).send("Ride not simulated.");
-    }
-
-    try {
-      const simulate = {
-        origin,
-        destination,
-        tripDate,
-      };
-
-      const simulated = await db("se_project.rides").update(simulate).returning("*");
-
-    } catch (e) {
-      console.log(e.message);
-      return res.status(400).send("Couldn't simulate.");
-    }
-  });
+  //   } catch (e) {
+  //     console.log(e.message);
+  //     return res.status(400).send("Couldn't simulate.");
+  //   }
+  // });
 
 
 
-  app.post("/api/v1/payment/ticket", async function (req, res) {
-    const { purchasedId, creditCardNumber, holderName, payedAmount, origin, destination, tripDate } = req.body;
+  // app.post("/api/v1/payment/ticket", async function (req, res) {
+  //   const { purchasedId, creditCardNumber, holderName, payedAmount, origin, destination, tripDate } = req.body;
 
-    if (!purchasedId || !creditCardNumber || !holderName || !payedAmount || !origin || !destination || !tripDate) {
-      return res.status(400).send("All fields are required.");
-    }
+  //   if (!purchasedId || !creditCardNumber || !holderName || !payedAmount || !origin || !destination || !tripDate) {
+  //     return res.status(400).send("All fields are required.");
+  //   }
 
-    try {
-      const ticket = {
-        purchasedId,
-        creditCardNumber,
-        holderName,
-        payedAmount,
-        origin,
-        destination,
-        tripDate
-      };
+  //   try {
+  //     const ticket = {
+  //       purchasedId,
+  //       creditCardNumber,
+  //       holderName,
+  //       payedAmount,
+  //       origin,
+  //       destination,
+  //       tripDate
+  //     };
 
-      const insertedTicket = await db("se_project.tickets").insert(ticket).returning("*");
+  //     const insertedTicket = await db("se_project.tickets").insert(ticket).returning("*");
 
-      return res.status(200).json(insertedTicket);
+  //     return res.status(200).json(insertedTicket);
 
-    } catch (e) {
-      console.log(e.message);
-      return res.status(400).send("Payment failed.");
-    }
-  });
+  //   } catch (e) {
+  //     console.log(e.message);
+  //     return res.status(400).send("Payment failed.");
+  //   }
+  // });
 
-  app.post("/api/v1/tickets/purchase/subscription", async function (req, res) {
-    const { subId, origin, destination, tripDate } = req.body;
+  // app.post("/api/v1/tickets/purchase/subscription", async function (req, res) {
+  //   const { subId, origin, destination, tripDate } = req.body;
 
-    if (!subId || !origin || !destination || !tripDate) {
-      return res.status(400).send("All fields are required.");
-    }
+  //   if (!subId || !origin || !destination || !tripDate) {
+  //     return res.status(400).send("All fields are required.");
+  //   }
 
-    try {
-      const subscription = await db("se_project.subscriptions").where({ id: subId }).first();
+  //   try {
+  //     const subscription = await db("se_project.subscriptions").where({ id: subId }).first();
 
-      if (!subscription) {
-        return res.status(404).send("Subscription not found.");
-      }
+  //     if (!subscription) {
+  //       return res.status(404).send("Subscription not found.");
+  //     }
 
-      const ticket = {
-        purchasedId: subscription.userId,
-        creditCardNumber: subscription.creditCardNumber,
-        holderName: subscription.holderName,
-        payedAmount: 0,
-        origin,
-        destination,
-        tripDate
-      };
+  //     const ticket = {
+  //       purchasedId: subscription.userId,
+  //       creditCardNumber: subscription.creditCardNumber,
+  //       holderName: subscription.holderName,
+  //       payedAmount: 0,
+  //       origin,
+  //       destination,
+  //       tripDate
+  //     };
 
-      const insertedTicket = await db("se_project.tickets").insert(ticket).returning("*");
+  //     const insertedTicket = await db("se_project.tickets").insert(ticket).returning("*");
 
-      return res.status(200).json(insertedTicket);
+  //     return res.status(200).json(insertedTicket);
 
-    } catch (e) {
-      console.log(e.message);
-      return res.status(400).send("Payment failed.");
-    }
-  });
+  //   } catch (e) {
+  //     console.log(e.message);
+  //     return res.status(400).send("Payment failed.");
+  //   }
+  // });
 
 
 

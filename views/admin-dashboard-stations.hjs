@@ -271,6 +271,56 @@
               </tbody>
             </table>
           </div>
+          <script>
+          $.ajax({
+          type: "POST",
+          url: '/api/v1/station',
+          data,
+          success: function(serverResponse) {
+            if(serverResponse) {
+              alert('Successfully Station created');
+              location.href = '/';
+            }
+          },
+          error: function(errorResponse) {
+            if(errorResponse) {
+              alert(`Error station creation: ${errorResponse.responseText}`);
+            }            
+          }
+        });
+          $.ajax({
+          type: "DELETE",
+          url: '/api/v1/station/:stationId',
+          data,
+          success: function(serverResponse) {
+            if(serverResponse) {
+              alert('Successfully Station Deleted');
+              location.href = '/';
+            }
+          },
+          error: function(errorResponse) {
+            if(errorResponse) {
+              alert(`Error Deletion of station: ${errorResponse.responseText}`);
+            }            
+          }
+        });
+          $.ajax({
+          type: "PUT",
+          url: '/api/v1/station/:stationId',
+          data,
+          success: function(serverResponse) {
+            if(serverResponse) {
+              alert('Successfully Station Updated');
+              location.href = '/';
+            }
+          },
+          error: function(errorResponse) {
+            if(errorResponse) {
+              alert(`Error updation of station: ${errorResponse.responseText}`);
+            }            
+          }
+        });
+          </script>
         </div>
       </div>
     </div>

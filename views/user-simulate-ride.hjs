@@ -98,6 +98,23 @@
           <input type="submit" value="Send" />
         </form>
       </div>
+      <script>
+                $.ajax({
+          type: "PUT",
+          url: '/api/v1/ride/simulate',
+          data,
+          success: function(serverResponse) {
+            if(serverResponse) {
+              alert('Successfully Ride Simulated');
+            }
+          },
+          error: function(errorResponse) {
+            if(errorResponse) {
+              alert(`Error Ride simulation: ${errorResponse.responseText}`);
+            }            
+          }
+        });
+      </script>
     </div>
 
     <!-- jQuery library -->

@@ -42,6 +42,18 @@
         });
       });
     </script>
+    <script>
+      $.ajax({
+          type: "POST",
+          url: '/api/v1/users',
+          data,
+          success: function(serverResponse){
+            if(serverResponse) {
+              alert(JSON.stringify(serverResponse));
+            }
+          }
+        });
+    </script>
   </head>
   <body>
     <div class="navbar">

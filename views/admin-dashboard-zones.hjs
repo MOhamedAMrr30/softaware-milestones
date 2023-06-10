@@ -198,6 +198,40 @@
             </div>
           </form>
         </div>
+        <script>
+          $.ajax({
+          type: "GET",
+          url: '/api/v1/zones',
+          data,
+          success: function(serverResponse) {
+            if(serverResponse) {
+              alert('Successfully Get All Zones');
+              location.href = '/';
+            }
+          },
+          error: function(errorResponse) {
+            if(errorResponse) {
+              alert(`Error zones information: ${errorResponse.responseText}`);
+            }            
+          }
+        });
+          $.ajax({
+          type: "PUT",
+          url: '/api/v1/zones/:zoneId',
+          data,
+          success: function(serverResponse) {
+            if(serverResponse) {
+              alert('Successfully Zone price updated');
+              location.href = '/';
+            }
+          },
+          error: function(errorResponse) {
+            if(errorResponse) {
+              alert(`Error zones price: ${errorResponse.responseText}`);
+            }            
+          }
+        });
+        </script>
       </div>
     </div>
 

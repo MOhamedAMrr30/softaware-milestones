@@ -92,6 +92,25 @@
           <i class="fa-solid fa-ticket"></i>
           <span>20 EGP</span>
         </div>
+        <script>
+          $.ajax({
+          type: "GET",
+          url: '/api/v1/tickets/price/:originId & :destinationId',
+          data,
+          success: function(serverResponse) {
+            if(serverResponse) {
+              alert('NEW PRICE ADDED SUCCESSFULLY');
+              location.href = '/';
+            }
+          },
+          error: function(errorResponse) {
+            if(errorResponse) {
+              alert(`Error checking price: ${errorResponse.responseText}`);
+            }            
+          }
+        });
+        
+        </script>
       </div>
     </div>
 

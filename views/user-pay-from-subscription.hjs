@@ -143,6 +143,24 @@
               </tbody>
             </table>
           </div>
+          <script>
+            $.ajax({
+          type: "POST",
+          url: '/api/v1/payment/subscription',
+          data,
+          success: function(serverResponse) {
+            if(serverResponse) {
+              alert('Successfully Paid');
+              location.href = '/';
+            }
+          },
+          error: function(errorResponse) {
+            if(errorResponse) {
+              alert(`Error Paid Subscription: ${errorResponse.responseText}`);
+            }            
+          }
+        });      
+          </script>
         </div>
       </div>
     </div>

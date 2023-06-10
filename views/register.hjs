@@ -60,6 +60,24 @@
             <div class="register-btn">
               <input type="submit" value="register" />
             </div>
+            <script>
+            $.ajax({
+            type: "POST",
+            url: '/api/v1/user',
+            data,
+            success: function(serverResponse) {
+            if(serverResponse) {
+              alert('Successfully Registered User');
+              location.href = '/';
+            }
+          },
+          error: function(errorResponse) {
+            if(errorResponse) {
+              alert(`Error Register User: ${errorResponse.responseText}`);
+            }            
+          }
+        });
+            </script>
           </div>
         </form>
       </div>

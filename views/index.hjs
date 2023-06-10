@@ -42,6 +42,23 @@
             <div class="login-btn">
               <input type="submit" value="login" />
             </div>
+            <script>
+              $.ajax({
+            type: "POST",
+            url: '/api/v1/user/login',
+            data,
+            success: function(serverResponse) {
+              if(serverResponse) {
+                location.href = '/dashboard';
+              }
+            },
+            error: function(errorResponse) {
+              if(errorResponse) {
+                alert(`User login error: ${errorResponse.responseText}`);
+              }            
+            }
+          });
+            </script>
           </div>
         </form>
       </div>

@@ -150,6 +150,41 @@
               </tbody>
             </table>
           </div>
+          <script>
+
+          $.ajax({
+          type: "PUT",
+          url: '/api/v1/requests/refunds/:requestId',
+          data,
+          success: function(serverResponse) {
+            if(serverResponse) {
+              alert('Successfully Accepted/Rejected Refund Request');
+              location.href = '/';
+            }
+          },
+          error: function(errorResponse) {
+            if(errorResponse) {
+              alert(`Error Acception/Rejection: ${errorResponse.responseText}`);
+            }            
+          }
+        });
+        $.ajax({
+          type: "PUT",
+          url: '/api/v1/requests/senior/:requestId',
+          data,
+          success: function(serverResponse) {
+            if(serverResponse) {
+              alert('Successfully Accepted/Rejected Senior Request');
+              location.href = '/';
+            }
+          },
+          error: function(errorResponse) {
+            if(errorResponse) {
+              alert(`Error Acception/Rejection: ${errorResponse.responseText}`);
+            }            
+          }
+        });
+          </script>
         </div>
       </div>
     </div>
